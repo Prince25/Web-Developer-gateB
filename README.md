@@ -1,5 +1,7 @@
 # Web Developer @ gateB - Exercise Submission
-This repository contains code for a Java servlet which scrapes [Time.com's](http://time.com/) front pages of Tech, Business, and Sports to fetch news articles. Each article's title, excerpt, image url, page url, and category is then sent as a JSON response when a GET request is made to /news-items.
+This repository contains code for: 
+* Java servlet backend which scrapes [Time.com's](http://time.com/) front pages of Tech, Business, and Sports to fetch news articles. Each article's title, excerpt, image url, page url, and category is then sent as a JSON response when a GET request is made to /news-items.
+* Mongolia CMS and Vue.js frontend responsible for fetching the data from the backend and showcasing it in a grid of cards with a functioning filter. The filter allows certain news cards to appear based on their category and/or certain text in the title of the news article. 
 
 ### Technologies
 * [Magnolia CMS](https://www.magnolia-cms.com/)
@@ -20,3 +22,5 @@ This repository contains code for a Java servlet which scrapes [Time.com's](http
 * [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools)
 * [Install Magnolia](https://documentation.magnolia-cms.com/display/DOCS62/Install+Magnolia#InstallMagnolia-InstallJava)
 * [Hello Magnolia for front-end developers](https://documentation.magnolia-cms.com/display/DOCS62/Hello+Magnolia+for+front-end+developers)
+* [Achieve multiple filtering in the Data table component <v-data-table>](https://front.id/en/articles/vuetify-achieve-multiple-filtering-data-table-component)
+* [VueJS prop is undefined when read in data() method](https://stackoverflow.com/questions/50086765/vuejs-prop-is-undefined-when-read-in-data-method)
