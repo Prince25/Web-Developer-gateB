@@ -6,6 +6,7 @@ This repository contains code for a Java servlet which scrapes [Time.com's](http
 * [Apache Tomcat](http://tomcat.apache.org/)
 * [Apache Maven](https://maven.apache.org/)
 * [Vue.js](https://vuejs.org/)
+* [Vuetify.js](https://vuetifyjs.com/en/)
 
 ### Maven Dependencies for Java Backend
 * [javax.servlet-api v4.0.1](https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api)
