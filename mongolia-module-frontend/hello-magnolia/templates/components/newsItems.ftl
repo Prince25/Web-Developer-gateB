@@ -64,24 +64,26 @@
                 },
 
                 methods: {
-                    // Filters through the news_items based on the type of filter (cat or text)
+                    // Filters through the news_items based on the current filter properties: selectedCats and text
                     // and assigns them to the "articles" property to be then rendered in the template 
-                    applyFilter(type) {
-                        switch(type) {
-                            // If called by filterByCategory()
-                            case 'cat':
-                                if (this.filters.selectedCats[0] === 'All') // Show all news items if "All" category is selected
-                                    this.articles = this.news_items
-                                else
-                                    this.articles = this.news_items.filter( // Otherwise, show only news items with the selected category
-                                        news_item => this.filters.selectedCats.some(
-                                            category => category === news_item.category
-                                        ))
-                                break;
-                            
-                            // If called by filterByText()
-                            case 'text':
-                                break;
+                    applyFilters() {
+
+                        // Filter through category first
+                        if (this.filters.selectedCats[0] === 'All')     // Show all news items if "All" category is selected
+                            this.articles = this.news_items
+                        else
+                            this.articles = this.news_items.filter(     // Otherwise, show only news items with the selected category
+                                news_item => this.filters.selectedCats.some(
+                                    category => category === news_item.category
+                                ))
+
+                        // Filter through text if supplied, otherwise show all articles that match the category
+                        if (this.filters.text !== '') {
+                            let words = this.filters.text.toLowerCase().split(' '); // Split text into words
+                            this.articles = this.articles.filter(                   // Find articles that match any words in article's title or excerpt
+                                article =>  words.some(word => article.title.toLowerCase().search(word) !== -1) ||
+                                            words.some(word => article.excerpt.toLowerCase().search(word) !== -1)
+                            )
                         }
                     },
 
@@ -90,22 +92,35 @@
                         return Object.assign({}, this.filters, newFilter)
                     },
 
-                    // 
+                    // Changes the value of "selectedCats" of the "filters" property based on the filters chosen
                     filterByCategory(catVal) {
+                        // Since catVal is only an array of indices of the filters selected, get the name of the Tags selected
                         let namedCats = this.tags.filter((el, idx) => catVal.includes(idx))
+
+                        // If a filter is selected (length of catVal > 0), update the "filters" property based on the tags selected
+                        // Otherwise, show all categories
                         this.filters = catVal.length > 0 ? this.updateFilters({selectedCats: namedCats}) : this.updateFilters({selectedCats: ['All']})
-                        this.applyFilter('cat')
+                        this.applyFilters()
                     },
 
+                    // Changes the value of "text" of the "filters" property based on the text typed
                     filterByText(text) {
-                        this.filters = text.length > 0 ? this.updateFilters({text: text}) : this.updateFilters({text: ''})
-                        this.applyFilter('text')
+                        this.filters = text && text.length > 0 ? this.updateFilters({text: text}) : this.updateFilters({text: ''})
+                        this.applyFilters()
                     },
                 },
                 
-                template:   `<v-container fluid>
-                                <v-card class="mx-auto" max-width="400">
-                                    <v-card-text class="pa-1">
+                template:   `<v-container fluid id='top'>
+                                <v-card class="mx-auto my-5 pa-5" max-width="600" flat>
+
+                                    <#--  Search Bar  -->
+                                    <v-text-field dense clearable outlined hide-details class="mx-10"
+                                        label="Search by Title or Excerpt" prepend-inner-icon="mdi-magnify" @input="filterByText" />
+
+                                    <v-divider class="my-4" />
+
+                                    <#--  Categories Filter  -->
+                                    <v-card-text class="ma-0 pa-0">
                                         <h2 class="text-overline text-center">Filter by Category</h2>
                                         
                                         <v-chip-group multiple active-class="primary--text" class="flex-center" @change="filterByCategory">
@@ -115,7 +130,15 @@
                                         </v-chip-group>
                                     </v-card-text>
                                 </v-card>
-                                <news-grid v-bind:articles="articles" />
+                                
+                                <#--  Show grid if articles are found with current filter(s), otherwise display message  -->
+                                <p v-if="!articles.length" class="text-h2 text-center"> No results found :( </p> 
+                                <news-grid v-else v-bind:articles="articles" />
+
+                                <#--  Scroll Button  -->
+                                <v-btn id="scrollBtn" fab dark color="#1e9960" fixed right bottom href="#top">
+                                    <v-icon>mdi-chevron-triple-up</v-icon>
+                                </v-btn>
                             </v-container>`
             });
 
@@ -146,12 +169,17 @@
                 data: () => ({
                     show: false,
                 }),
-                template: `<v-card class="mx-auto my-2" max-width="400" elevation=5 shaped>
-                                <v-img class="white--text align-end" height="200px" v-bind:src="article.imgUrl" />
+                template: `<v-card class="mx-auto my-2" max-width="325" elevation=5 shaped>
+                                <#--  Clickable image  -->
+                                <a v-bind:href="article.pageUrl" target="_blank">
+                                    <v-img class="white--text align-end" height="200px" v-bind:src="article.imgUrl"/>
+                                </a>
                                 
+                                <#--  Title and Category  -->
                                 <v-card-title class="wrap-text text-subtitle-2">{{article.title}}</v-card-title>
                                 <v-card-subtitle class="py-0 text-caption">{{article.category}}</v-card-subtitle>
 
+                                <#--  Buttons  -->
                                 <v-card-actions>
                                     <v-btn color="orange" text v-bind:href="article.pageUrl" target="_blank">
                                         Read More
@@ -167,6 +195,7 @@
                                     </v-btn>
                                 </v-card-actions>
 
+                                <#--  Show excerpt when expanded  -->
                                 <v-expand-transition>
                                     <div v-show="show">
                                         <v-divider></v-divider>
@@ -175,7 +204,6 @@
                                 </v-expand-transition>
                             </v-card>`
             });
-
 
             // Intialize Vue once data has been fetched
             fetch("http://localhost:8080/servlet-json-backend/news-items").then(
@@ -186,6 +214,16 @@
                     data: { newsItems: json.newsItems },
                     vuetify: new Vuetify(),
                 });
+
+                // Make button appear only when scrolled past 400px from the top
+                scrollBtn = document.getElementById("scrollBtn");
+                window.onscroll = function() {scrollFunction()};
+                function scrollFunction() {
+                    if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400)
+                        scrollBtn.style.display = "inline-flex";
+                    else
+                        scrollBtn.style.display = "none";
+                }
             })
         </script>
     </body>
