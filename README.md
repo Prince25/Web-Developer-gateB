@@ -6,6 +6,17 @@ This repository contains code for:
 ![Screenshot](https://i.imgur.com/SWhYSTl.png)
 
 ### Installation / Usage
+
+**Preferred Method**\
+Prerequisite: follow the "Install Java", "Install Node.js", and "Install Magnolia CLI" sections in this [tutorial](https://documentation.magnolia-cms.com/display/DOCS62/Install+Magnolia#InstallMagnolia-InstallMagnolia).
+1. Download and Extract this [zip](https://drive.google.com/file/d/10oqfWcTxakTLIAM9aB1-TW5HHyXZGq3t/view?usp=sharing).
+2. Run ```mgnl start``` in the directory where you extracted the zip contents (```apache-tomcat``` and ```light-modules```).
+3. Go to ```http://localhost:8080/magnoliaAuthor``` once the server starts.
+4. Sign in with username: ```superuser``` and password: ```superuser```.
+5. Go to ```http://localhost:8080/magnoliaAuthor/Hello-Magnolia.html```.
+6. Enjoy :)
+
+**Backup Method**
 1. Obtain Java servlet backend build.
     You can either download a zip [here](https://drive.google.com/file/d/1MFgrWpkISSzNzuhVgaHQP79z3McaLHJy/view?usp=sharing) or follow the instructions below to build from source:
     * Clone or download this repository 
