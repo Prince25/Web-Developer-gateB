@@ -3,19 +3,51 @@ This repository contains code for:
 * Java servlet backend which scrapes [Time.com's](http://time.com/) front pages of Tech, Business, and Sports to fetch news articles. Each article's title, excerpt, image url, page url, and category is then sent as a JSON response when a GET request is made to /news-items.
 * Mongolia CMS and Vue.js frontend responsible for fetching the data from the backend and showcasing it in a grid of cards with a functioning filter. The filter allows certain news cards to appear based on their category and/or certain text in the title or excerpt of the news article. 
 
+![Screenshot](https://i.imgur.com/SWhYSTl.png)
+
 ### Installation / Usage
 1. Obtain Java servlet backend build.
     You can either download a zip [here](https://drive.google.com/file/d/1MFgrWpkISSzNzuhVgaHQP79z3McaLHJy/view?usp=sharing) or follow the instructions below to build from source:
     * Clone or download this repository 
     ```git clone https://github.com/PrinceS25/Web-Developer-gateB.git```
     * Open [Eclipse IDE](https://www.eclipse.org/ide/) -> import from existing Maven project -> choose ```pom.xml``` in ```servlet-json-backend``` directory from this repository
-    * Run with a Apache Tomcat server
+    * Run with a Apache Tomcat server\
+    **Note:** If you cannot add the project to the server, you may first have to go to the project settings -> project facets, convert to facet form, and enable "Dynamic Web Module"\
+    **Note 2:** You may also need to export the .jar files to the lib, check the markers tab for "Classpath Dependency Validator Message -> Classpath entry org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER will not be exported or published. Runtime ClassNotFoundExceptions may result" message. Right click -> Quick Fix -> Mark the associated raw classpath entry as a publish/export dependency.
     * Obtain ```servlet-json-backend``` containing the build from your server directory
 2. Follow [this](https://documentation.magnolia-cms.com/display/DOCS62/Install+Magnolia) tutorial to install Mongolia CLI
 3. Place ```servlet-json-backend``` folder (obtained from step 1) inside ```apache-tomcat/webapps``` directory.\
     **Note:** Make sure ```apache-tomcat``` directory is the one generated in step 2
-4. Follow [this](https://documentation.magnolia-cms.com/display/DOCS62/Hello+Magnolia+for+front-end+developers) tutorial until the beginning of "Tweak your light module" section **BUT** instead of using the hello-mangolia.zip they provide, use the ```hello-mangolia``` folder from the  ```mongolia-module-frontend``` directory in this repository or download the zip [here](https://drive.google.com/file/d/1zz-SInoBIHbWpPm2RgYYyq46p8Xd1E2A/view?usp=sharing).\
-    **Note**: Before proceeding to the next step, you should have placed ```hello-mangolia``` inside the ```light-modules``` directory, logged in, created a new page, and added a component.
+4. Follow [this](https://documentation.magnolia-cms.com/display/DOCS62/Hello+Magnolia+for+front-end+developers) tutorial until the beginning of "Tweak your light module" section **BUT** instead of using the hello-magnolia.zip they provide, use the ```hello-magnolia``` folder from the  ```mongolia-module-frontend``` directory in this repository or download the zip [here](https://drive.google.com/file/d/1zz-SInoBIHbWpPm2RgYYyq46p8Xd1E2A/view?usp=sharing).\
+    **Note**: Before proceeding to the next step, you should have placed ```hello-magnolia``` inside the ```light-modules``` directory, logged in, created a new page, and added a component.\
+    Your Magnolia jumpstart directory should look like this:
+    ```
+    <directory specified during jumpstart>/
+    ├──apache-tomcat
+    │   ├── ...
+    │   ├── webapps
+    │   │   ├── magnoliaAuthor
+    │   │   └── servlet-json-backend
+    │   │   └── ...
+    │   └── ...
+    ├── light-modules
+    │   └── hello-magnolia
+    |   |   ├── dialogs/
+    |   |   │   └── ...
+    |   |   ├── webresources/
+    |   |   │   └── ...
+    |   |   └── templates/
+    |   |       ├── components/
+    |   |       │   ├── newsItems.ftl
+    |   |       │   ├── newsItems.yaml
+    |   |       │   ├── quotation.ftl
+    |   |       │   └── quotation.yaml
+    |   |       └── pages/
+    |   |           ├── hello.ftl
+    |   |           └── hello.yaml
+    |   └── ...
+    └── ...
+    ```
 5. Add the News Items component.
 6. Enjoy :)
 
