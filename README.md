@@ -8,7 +8,7 @@ This repository contains code for:
 ### Installation / Usage
 
 **Preferred Method**\
-Prerequisite: follow the "Install Java", "Install Node.js", and "Install Magnolia CLI" sections in this [tutorial](https://documentation.magnolia-cms.com/display/DOCS62/Install+Magnolia#InstallMagnolia-InstallMagnolia).
+Prerequisite: follow the "Install Java", "Install Node.js", and "Install Magnolia CLI" sections in this [tutorial](https://documentation.magnolia-cms.com/display/DOCS62/Install+Magnolia).
 1. Download and Extract this [zip](https://drive.google.com/file/d/10oqfWcTxakTLIAM9aB1-TW5HHyXZGq3t/view?usp=sharing).
 2. Run ```mgnl start``` in the directory where you extracted the zip contents (```apache-tomcat``` and ```light-modules```).
 3. Go to ```http://localhost:8080/magnoliaAuthor``` once the server starts.
