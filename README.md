@@ -73,9 +73,9 @@ This repository contains code for:
 6. Enjoy :)
 
 ### Known Bugs
-* Time posting the same article to more than one category (i.e. two articles with same title) causes Vue to give "Duplicate keys" warning, sometimes preventing the app to update.
-    - It's an easy fix.
-    - Highly dependent on how Time categorizes their articles.
+* ~~Time posting the same article to more than one category (i.e. two articles with same title) causes Vue to give "Duplicate keys" warning, sometimes preventing the app to update.~~
+    - ~~It's an easy fix.~~
+    - ~~Highly dependent on how Time categorizes their articles.~~
 
 ### Technologies
 * [Magnolia CMS](https://www.magnolia-cms.com/)

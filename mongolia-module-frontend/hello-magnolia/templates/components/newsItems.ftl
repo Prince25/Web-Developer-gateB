@@ -152,7 +152,7 @@
             Vue.component('news-grid', {
                 props: ['articles'],
                 template:   `<v-row dense>
-                                <v-col v-for="article in articles" :key="article.title" :cols="article.flex">
+                                <v-col v-for="(article, index) in articles" :key="index" :cols="article.flex">
                                     <news-item v-bind:article="article" v-bind:key="article.title" />
                                 </v-col>
                             </v-row>`
